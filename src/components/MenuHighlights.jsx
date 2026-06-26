@@ -19,7 +19,7 @@ const menuItems = [
     description: 'Thick, indulgent, and loaded with protein. From classics to seasonal creations.',
     image: imgShake,
     alt: 'Protein Monkey seasonal protein shake',
-    objectPosition: 'top',
+    objectPosition: 'center',
   },
   {
     num: '03',
