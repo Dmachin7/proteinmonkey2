@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import interior from '../assets/about-photo.jpg'
-import logo from '../assets/logo.png'
+import logo from '../assets/Logo.png'
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
