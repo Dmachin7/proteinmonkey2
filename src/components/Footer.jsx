@@ -1,5 +1,5 @@
 import { Instagram, Facebook } from 'lucide-react'
-import logo from '../assets/logo.png'
+import logo from '../assets/Logo.png'
 
 const navLinks = [
   { label: 'About', href: '#about' },
