@@ -23,13 +23,13 @@ export const menuCategories = [
       },
       {
         name: 'Elvis',
-        price: 'Market Price',
+        price: '$15.60',
         description:
           'Natural peanut butter drizzle, bananas, reduced sugar jelly (no high fructose corn syrup), bacon bits, whip cream and honey',
       },
       {
         name: 'Choco Coco',
-        price: 'Market Price',
+        price: '$15.60',
         description:
           'Drizzled with chocolate and topped with crumbled cookies, layers of cream and whole Oreo pieces',
       },
@@ -56,13 +56,13 @@ export const menuCategories = [
     items: [
       {
         name: 'Churro',
-        price: 'Market Price',
+        price: '$10.66',
         description: 'Tastes like a cinnamon dream — no weird protein aftertaste. 34g protein, 200 calories',
       },
-      { name: 'PB&J', price: 'Market Price' },
-      { name: 'Banana Caramel', price: 'Market Price' },
-      { name: 'Watermelon Mint', price: 'Market Price' },
-      { name: 'Strawberry Cheesecake', price: 'Market Price' },
+      { name: 'PB&J', price: '$10.66' },
+      { name: 'Banana Caramel', price: '$10.66' },
+      { name: 'Watermelon Mint', price: '$10.66' },
+      { name: 'Strawberry Cheesecake', price: '$10.66' },
     ],
   },
   {
@@ -86,10 +86,10 @@ export const menuCategories = [
       { name: 'Mango Refresher', price: '$10.30' },
       {
         name: 'Raspberry Lemonade',
-        price: 'Market Price',
+        price: '$10.30',
         description: 'Refreshing raspberry-infused lemonade, perfectly sweet with a tangy kick',
       },
-      { name: 'Pineapple Mojito', price: 'Market Price' },
+      { name: 'Pineapple Mojito', price: '$10.30' },
     ],
   },
   {
@@ -98,7 +98,7 @@ export const menuCategories = [
     label: 'Green Juice & Hot Tea',
     items: [
       { name: 'Green Juice', price: '$8.90' },
-      { name: 'Hot Tea', price: 'Market Price', description: 'Ask about flavors in store' },
+      { name: 'Hot Tea', price: '$8.90', description: 'Ask about flavors in store' },
     ],
   },
   {
@@ -108,10 +108,10 @@ export const menuCategories = [
     items: [
       {
         name: 'Kids Mint Chip Shake',
-        price: 'Market Price',
+        price: '$6.24',
         description: '15g protein. Nutrient-rich shake made for kids',
       },
-      { name: 'Little Monkeys Refreshers', price: 'Market Price' },
+      { name: 'Little Monkeys Refreshers', price: '$6.24' },
     ],
   },
   {
@@ -121,10 +121,10 @@ export const menuCategories = [
     items: [
       {
         name: 'Protein Cookies',
-        price: 'Market Price',
+        price: '$4.16',
         description: 'Sweet, satisfying, no chalky protein taste',
       },
-      { name: 'Protein Muffins', price: 'Market Price' },
+      { name: 'Protein Muffins', price: '$8.32' },
     ],
   },
 ]
