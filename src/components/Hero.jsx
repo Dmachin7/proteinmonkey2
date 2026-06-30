@@ -49,38 +49,20 @@ export default function Hero() {
           {...fadeUp(0.1)}
           src={logo}
           alt="Protein Monkey"
-          className="h-20 md:h-28 w-auto object-contain mb-10"
+          className="h-36 sm:h-44 md:h-52 lg:h-60 w-auto object-contain mb-12"
           style={{ filter: 'url(#hero-logo-color)' }}
         />
 
-        <motion.h1
-          {...fadeUp(0.3)}
-          className="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-tight mb-6"
-        >
-          Where Wellness
-          <br />
-          Meets Luxury
-        </motion.h1>
-
-        <motion.p
-          {...fadeUp(0.5)}
-          className="font-sans text-base md:text-lg font-light text-cream/75 tracking-wide max-w-md mb-12"
-        >
-          Fresh. Intentional. Unforgettable.
-          <br />
-          Tampa's most beautiful healthy café.
-        </motion.p>
-
         <div className="flex flex-col sm:flex-row gap-4 items-center">
           <motion.a
-            {...fadeUp(0.65)}
+            {...fadeUp(0.3)}
             href="#menu"
             className="px-8 py-3.5 border border-monkey-orange text-monkey-orange font-sans font-light tracking-widest text-sm uppercase hover:bg-monkey-orange hover:text-dark-cocoa transition-all duration-300"
           >
             Explore Our Menu
           </motion.a>
           <motion.a
-            {...fadeUp(0.78)}
+            {...fadeUp(0.43)}
             href="https://www.doordash.com/store/protein-monkey-tampa-23748556/24404582/"
             target="_blank"
             rel="noopener noreferrer"
