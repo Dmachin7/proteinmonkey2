@@ -52,7 +52,7 @@ export default function Navbar() {
           <img
             src={logo}
             alt="Protein Monkey"
-            className="h-11 w-auto object-contain transition-all duration-500"
+            className="h-16 w-auto object-contain transition-all duration-500"
             style={{
               filter: solid
                 ? 'brightness(0) invert(67%) sepia(52%) saturate(834%) hue-rotate(352deg) brightness(99%) contrast(102%)'

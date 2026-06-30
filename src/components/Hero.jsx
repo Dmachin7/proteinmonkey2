@@ -95,7 +95,7 @@ export default function Hero() {
           {...fadeUp(0.1)}
           src={logo}
           alt="Protein Monkey"
-          className="h-36 sm:h-44 md:h-52 lg:h-60 w-auto object-contain mb-12"
+          className="h-44 sm:h-52 md:h-60 lg:h-72 w-auto object-contain mb-12"
           style={{ filter: 'url(#hero-logo-color)' }}
         />
 
