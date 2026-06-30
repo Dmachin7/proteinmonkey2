@@ -13,8 +13,15 @@ import useSmoothScroll from './hooks/useSmoothScroll'
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
   useLayoutEffect(() => {
-    if (!hash) window.scrollTo(0, 0)
-  }, [pathname])
+    if (!hash) {
+      window.scrollTo(0, 0)
+      return
+    }
+    const timer = setTimeout(() => {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' })
+    }, 80)
+    return () => clearTimeout(timer)
+  }, [pathname, hash])
   return null
 }
 

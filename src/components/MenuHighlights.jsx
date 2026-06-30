@@ -1,4 +1,5 @@
 import { useRef, useLayoutEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -14,6 +15,7 @@ const menuItems = [
   {
     num: '01',
     category: 'Protein Waffles',
+    menuId: 'waffles',
     description: 'Crispy on the outside, macro-friendly on the inside. A Protein Monkey staple.',
     image: imgWaffles,
     alt: 'Protein Monkey waffles with strawberries and chocolate drizzle',
@@ -22,6 +24,7 @@ const menuItems = [
   {
     num: '02',
     category: 'Protein Shakes',
+    menuId: 'shakes',
     description: 'Thick, indulgent, and loaded with protein. From classics to seasonal creations.',
     image: imgShake,
     alt: 'Protein Monkey seasonal protein shake',
@@ -30,6 +33,7 @@ const menuItems = [
   {
     num: '03',
     category: 'Loaded Teas',
+    menuId: 'juice-tea',
     description: 'Energizing, refreshing, and made with real fruit. As beautiful as they are delicious.',
     image: imgTea,
     alt: 'Protein Monkey peach loaded tea',
@@ -38,6 +42,7 @@ const menuItems = [
   {
     num: '04',
     category: 'Protein Coffee',
+    menuId: 'coffee',
     description: 'Your morning ritual, elevated. Rich cold coffee blended with protein.',
     image: imgCoffee,
     alt: 'Protein Monkey iced protein coffee',
@@ -59,33 +64,35 @@ function MenuCard({ item }) {
   return (
     <motion.article
       variants={cardVariants}
-      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-default"
+      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
     >
-      {/* Image */}
-      <div className="overflow-hidden aspect-[4/3]">
-        <motion.img
-          src={item.image}
-          alt={item.alt}
-          className="w-full h-full object-cover"
-          style={{ objectPosition: item.objectPosition }}
-          whileHover={{ scale: 1.04 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        />
-      </div>
-
-      {/* Text */}
-      <div className="p-5 lg:p-6">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="font-serif italic text-monkey-orange/60 text-sm select-none">{item.num}</span>
-          <div className="w-4 h-px bg-monkey-orange/30" />
+      <Link to={`/menu#${item.menuId}`} className="block">
+        {/* Image */}
+        <div className="overflow-hidden aspect-[4/3]">
+          <motion.img
+            src={item.image}
+            alt={item.alt}
+            className="w-full h-full object-cover"
+            style={{ objectPosition: item.objectPosition }}
+            whileHover={{ scale: 1.04 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          />
         </div>
-        <h3 className="font-serif text-xl font-semibold text-charcoal mb-2 leading-snug">
-          {item.category}
-        </h3>
-        <p className="font-sans font-light text-sm leading-relaxed text-charcoal/60">
-          {item.description}
-        </p>
-      </div>
+
+        {/* Text */}
+        <div className="p-5 lg:p-6">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="font-serif italic text-monkey-orange/60 text-sm select-none">{item.num}</span>
+            <div className="w-4 h-px bg-monkey-orange/30" />
+          </div>
+          <h3 className="font-serif text-xl font-semibold text-charcoal mb-2 leading-snug">
+            {item.category}
+          </h3>
+          <p className="font-sans font-light text-sm leading-relaxed text-charcoal/60">
+            {item.description}
+          </p>
+        </div>
+      </Link>
     </motion.article>
   )
 }
@@ -167,8 +174,9 @@ export default function MenuHighlights() {
         <div className="md:hidden -mx-6 px-6">
           <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-hide">
             {menuItems.map((item) => (
-              <div
+              <Link
                 key={item.category}
+                to={`/menu#${item.menuId}`}
                 className="snap-start flex-shrink-0 w-[80vw]"
               >
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm">
@@ -193,7 +201,7 @@ export default function MenuHighlights() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           {/* Swipe hint */}
@@ -201,6 +209,22 @@ export default function MenuHighlights() {
             Swipe to explore
           </p>
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-center mt-12 lg:mt-16"
+        >
+          <Link
+            to="/menu"
+            className="inline-block px-8 py-3.5 border border-monkey-orange text-monkey-orange font-sans font-light tracking-widest text-sm uppercase hover:bg-monkey-orange hover:text-cream transition-all duration-300"
+          >
+            See Full Menu
+          </Link>
+        </motion.div>
 
       </div>
     </section>
