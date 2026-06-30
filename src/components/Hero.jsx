@@ -1,6 +1,11 @@
+import { useRef, useLayoutEffect } from 'react'
 import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import interior from '../assets/about-photo.jpg'
 import logo from '../assets/Logo.png'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
@@ -9,10 +14,53 @@ const fadeUp = (delay = 0) => ({
 })
 
 export default function Hero() {
+  const sectionRef = useRef(null)
+  const photoRef = useRef(null)
+  const contentRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      // Slow continuous Ken Burns drift for cinematic stillness
+      gsap.fromTo(
+        photoRef.current,
+        { scale: 1.08, yPercent: 0 },
+        { scale: 1.18, yPercent: -2, duration: 14, ease: 'sine.inOut', repeat: -1, yoyo: true }
+      )
+
+      // Extra scroll-linked parallax depth as the hero scrolls away
+      gsap.to(photoRef.current, {
+        yPercent: '+=10',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+
+      gsap.to(contentRef.current, {
+        opacity: 0,
+        y: -50,
+        scale: 0.96,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: '60% top',
+          scrub: true,
+        },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background photo */}
       <img
+        ref={photoRef}
         src={interior}
         alt=""
         aria-hidden="true"
@@ -44,7 +92,7 @@ export default function Hero() {
       </svg>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl mx-auto">
+      <div ref={contentRef} className="relative z-10 flex flex-col items-center text-center px-6 max-w-3xl mx-auto">
         <motion.img
           {...fadeUp(0.1)}
           src={logo}

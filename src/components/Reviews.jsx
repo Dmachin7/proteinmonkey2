@@ -1,4 +1,9 @@
+import { useRef, useLayoutEffect } from 'react'
 import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const featured = {
   quote:
@@ -18,6 +23,25 @@ const secondary = [
 ]
 
 export default function Reviews() {
+  const lineRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        lineRef.current,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 0.7,
+          ease: 'power2.out',
+          transformOrigin: 'left',
+          scrollTrigger: { trigger: lineRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+        }
+      )
+    })
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="reviews" className="bg-cream py-24 lg:py-36 overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 lg:px-12">
@@ -30,7 +54,7 @@ export default function Reviews() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center gap-4 mb-16 lg:mb-20"
         >
-          <div className="w-8 h-px bg-gold" />
+          <div ref={lineRef} className="w-8 h-px bg-gold origin-left" />
           <span className="font-sans text-xs tracking-[0.2em] uppercase text-gold">
             What People Are Saying
           </span>

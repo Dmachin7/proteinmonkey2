@@ -5,8 +5,11 @@ import MenuHighlights from './components/MenuHighlights'
 import Reviews from './components/Reviews'
 import VisitUs from './components/VisitUs'
 import Footer from './components/Footer'
+import useSmoothScroll from './hooks/useSmoothScroll'
 
 export default function App() {
+  useSmoothScroll()
+
   return (
     <>
       <Navbar />

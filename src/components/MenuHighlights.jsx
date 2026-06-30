@@ -1,8 +1,14 @@
+import { useRef, useLayoutEffect } from 'react'
 import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SplitText } from 'gsap/SplitText'
 import imgWaffles from '../assets/menu-waffles.jpg'
 import imgShake from '../assets/ProteinShake.jpg'
 import imgTea from '../assets/menu-loaded-tea.jpg'
 import imgCoffee from '../assets/menu-protein-coffee.jpg'
+
+gsap.registerPlugin(ScrollTrigger, SplitText)
 
 const menuItems = [
   {
@@ -85,6 +91,41 @@ function MenuCard({ item }) {
 }
 
 export default function MenuHighlights() {
+  const lineRef = useRef(null)
+  const headingRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        lineRef.current,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 0.7,
+          ease: 'power2.out',
+          transformOrigin: 'left',
+          scrollTrigger: { trigger: lineRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+        }
+      )
+
+      const split = new SplitText(headingRef.current, { type: 'lines', linesClass: 'overflow-hidden' })
+      gsap.fromTo(
+        split.lines,
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.9,
+          ease: 'power4.out',
+          stagger: 0.1,
+          scrollTrigger: { trigger: headingRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+        }
+      )
+
+      return () => split.revert()
+    })
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="menu" className="bg-cream py-16 lg:py-24">
       <div className="max-w-6xl mx-auto px-6 lg:px-12">
@@ -98,10 +139,10 @@ export default function MenuHighlights() {
           className="mb-10 lg:mb-14"
         >
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-8 h-px bg-monkey-orange" />
+            <div ref={lineRef} className="w-8 h-px bg-monkey-orange origin-left" />
             <span className="font-sans text-xs tracking-[0.2em] uppercase text-monkey-orange">The Menu</span>
           </div>
-          <h2 className="font-serif text-4xl md:text-5xl font-semibold text-charcoal leading-tight">
+          <h2 ref={headingRef} className="font-serif text-4xl md:text-5xl font-semibold text-charcoal leading-tight">
             Crafted With Care
           </h2>
           <p className="font-sans font-light text-sm text-charcoal/50 mt-2 tracking-wide">

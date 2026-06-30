@@ -1,6 +1,47 @@
+import { useRef, useLayoutEffect } from 'react'
 import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { SplitText } from 'gsap/SplitText'
+
+gsap.registerPlugin(ScrollTrigger, SplitText)
 
 export default function VisitUs() {
+  const lineRef = useRef(null)
+  const headingRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        lineRef.current,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 0.7,
+          ease: 'power2.out',
+          transformOrigin: 'left',
+          scrollTrigger: { trigger: lineRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+        }
+      )
+
+      const split = new SplitText(headingRef.current, { type: 'lines', linesClass: 'overflow-hidden' })
+      gsap.fromTo(
+        split.lines,
+        { yPercent: 110 },
+        {
+          yPercent: 0,
+          duration: 0.9,
+          ease: 'power4.out',
+          stagger: 0.1,
+          scrollTrigger: { trigger: headingRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+        }
+      )
+
+      return () => split.revert()
+    })
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="visit" className="bg-cream py-24 lg:py-36">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -14,11 +55,11 @@ export default function VisitUs() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-px bg-gold" />
+              <div ref={lineRef} className="w-8 h-px bg-gold origin-left" />
               <span className="font-sans text-xs tracking-[0.2em] uppercase text-gold">Find Us</span>
             </div>
 
-            <h2 className="font-serif text-5xl md:text-6xl font-semibold text-charcoal leading-tight mb-5">
+            <h2 ref={headingRef} className="font-serif text-5xl md:text-6xl font-semibold text-charcoal leading-tight mb-5">
               Come Find Us
             </h2>
 
