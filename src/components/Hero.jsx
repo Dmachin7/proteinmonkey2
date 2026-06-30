@@ -1,4 +1,5 @@
 import { useRef, useLayoutEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -6,6 +7,8 @@ import interior from '../assets/about-photo.jpg'
 import logo from '../assets/Logo.png'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const MotionLink = motion(Link)
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
@@ -97,13 +100,13 @@ export default function Hero() {
         />
 
         <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <motion.a
+          <MotionLink
             {...fadeUp(0.3)}
-            href="#menu"
+            to="/menu"
             className="px-8 py-3.5 border border-monkey-orange text-monkey-orange font-sans font-light tracking-widest text-sm uppercase hover:bg-monkey-orange hover:text-dark-cocoa transition-all duration-300"
           >
             Explore Our Menu
-          </motion.a>
+          </MotionLink>
           <motion.a
             {...fadeUp(0.43)}
             href="https://www.doordash.com/store/protein-monkey-tampa-23748556/24404582/"

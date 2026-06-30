@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import logo from '../assets/Logo.png'
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Menu', href: '#menu' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'Order', href: '#visit' },
-  { label: 'Visit Us', href: '#visit' },
+  { label: 'About', href: '/#about' },
+  { label: 'Menu', href: '/menu', isRoute: true },
+  { label: 'Reviews', href: '/#reviews' },
+  { label: 'Order', href: '/#visit' },
+  { label: 'Visit Us', href: '/#visit' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { pathname } = useLocation()
+  const solid = scrolled || menuOpen || pathname !== '/'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
@@ -38,41 +41,55 @@ export default function Navbar() {
       </svg>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || menuOpen
+        solid
           ? 'bg-cream/95 backdrop-blur-md shadow-sm'
           : 'bg-transparent'
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
         {/* Logo */}
-        <a href="#" className="flex items-center flex-shrink-0">
+        <Link to="/" className="flex items-center flex-shrink-0">
           <img
             src={logo}
             alt="Protein Monkey"
             className="h-11 w-auto object-contain transition-all duration-500"
             style={{
-              filter: scrolled || menuOpen
+              filter: solid
                 ? 'brightness(0) invert(67%) sepia(52%) saturate(834%) hue-rotate(352deg) brightness(99%) contrast(102%)'
                 : 'url(#nav-logo-color)',
             }}
           />
-        </a>
+        </Link>
 
         {/* Desktop Nav Links */}
         <ul className="hidden md:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                className={`relative text-sm font-light tracking-widest uppercase group transition-colors duration-300 ${
-                  scrolled ? 'text-charcoal hover:text-botanical-green' : 'text-cream/90 hover:text-white'
-                }`}
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold transition-all duration-300 group-hover:w-full" />
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <li key={link.href}>
+                <Link
+                  to={link.href}
+                  className={`relative text-sm font-light tracking-widest uppercase group transition-colors duration-300 ${
+                    solid ? 'text-charcoal hover:text-botanical-green' : 'text-cream/90 hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold transition-all duration-300 group-hover:w-full" />
+                </Link>
+              </li>
+            ) : (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className={`relative text-sm font-light tracking-widest uppercase group transition-colors duration-300 ${
+                    solid ? 'text-charcoal hover:text-botanical-green' : 'text-cream/90 hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold transition-all duration-300 group-hover:w-full" />
+                </a>
+              </li>
+            )
+          )}
         </ul>
 
         {/* Mobile Hamburger */}
@@ -84,15 +101,15 @@ export default function Navbar() {
         >
           <motion.span
             animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            className={`block w-6 h-px origin-center transition-colors ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-cream'}`}
+            className={`block w-6 h-px origin-center transition-colors ${solid ? 'bg-charcoal' : 'bg-cream'}`}
           />
           <motion.span
             animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-            className={`block w-6 h-px ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-cream'}`}
+            className={`block w-6 h-px ${solid ? 'bg-charcoal' : 'bg-cream'}`}
           />
           <motion.span
             animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            className={`block w-6 h-px origin-center ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-cream'}`}
+            className={`block w-6 h-px origin-center ${solid ? 'bg-charcoal' : 'bg-cream'}`}
           />
         </button>
       </nav>
@@ -108,17 +125,29 @@ export default function Navbar() {
             className="md:hidden bg-cream border-t border-gold/20 overflow-hidden"
           >
             <ul className="flex flex-col py-6 px-6 gap-6">
-              {navLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="block text-charcoal text-base font-light tracking-widest uppercase hover:text-botanical-green transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {navLinks.map((link) =>
+                link.isRoute ? (
+                  <li key={link.href}>
+                    <Link
+                      to={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block text-charcoal text-base font-light tracking-widest uppercase hover:text-botanical-green transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ) : (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block text-charcoal text-base font-light tracking-widest uppercase hover:text-botanical-green transition-colors duration-200"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                )
+              )}
             </ul>
           </motion.div>
         )}

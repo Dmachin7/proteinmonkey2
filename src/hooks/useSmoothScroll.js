@@ -18,11 +18,17 @@ export default function useSmoothScroll() {
     gsap.ticker.lagSmoothing(0)
 
     const handleClick = (e) => {
-      const link = e.target.closest('a[href^="#"]')
+      const link = e.target.closest('a[href*="#"]')
       if (!link) return
-      const id = link.getAttribute('href')
-      if (id.length <= 1) return
-      const target = document.querySelector(id)
+      const href = link.getAttribute('href')
+      const hashIndex = href.indexOf('#')
+      if (hashIndex === -1) return
+      const path = href.slice(0, hashIndex)
+      const hash = href.slice(hashIndex)
+      if (hash.length <= 1) return
+      // Cross-page anchor link (e.g. "/#about" while on /menu) — let the browser navigate normally
+      if (path && path !== window.location.pathname) return
+      const target = document.querySelector(hash)
       if (!target) return
       e.preventDefault()
       lenis.scrollTo(target, { offset: -80, duration: 1.5 })

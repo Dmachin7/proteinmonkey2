@@ -1,12 +1,13 @@
 import { Instagram, Facebook } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import logo from '../assets/Logo.png'
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Menu', href: '#menu' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'Order', href: '#order' },
-  { label: 'Visit Us', href: '#visit' },
+  { label: 'About', href: '/#about' },
+  { label: 'Menu', href: '/menu', isRoute: true },
+  { label: 'Reviews', href: '/#reviews' },
+  { label: 'Order', href: '/#visit' },
+  { label: 'Visit Us', href: '/#visit' },
 ]
 
 const socialLinks = [
@@ -45,16 +46,27 @@ export default function Footer() {
 
           {/* Nav links */}
           <ul className="flex flex-wrap gap-6 md:gap-8">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="font-sans text-xs tracking-widest uppercase text-cream/60 hover:text-cream transition-colors duration-200"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((link) =>
+              link.isRoute ? (
+                <li key={link.label}>
+                  <Link
+                    to={link.href}
+                    className="font-sans text-xs tracking-widest uppercase text-cream/60 hover:text-cream transition-colors duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ) : (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="font-sans text-xs tracking-widest uppercase text-cream/60 hover:text-cream transition-colors duration-200"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              )
+            )}
           </ul>
 
           {/* Social icons */}
