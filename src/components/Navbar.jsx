@@ -38,7 +38,7 @@ export default function Navbar() {
       </svg>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
+        scrolled || menuOpen
           ? 'bg-cream/95 backdrop-blur-md shadow-sm'
           : 'bg-transparent'
       }`}
@@ -51,7 +51,7 @@ export default function Navbar() {
             alt="Protein Monkey"
             className="h-11 w-auto object-contain transition-all duration-500"
             style={{
-              filter: scrolled
+              filter: scrolled || menuOpen
                 ? 'brightness(0) invert(67%) sepia(52%) saturate(834%) hue-rotate(352deg) brightness(99%) contrast(102%)'
                 : 'url(#nav-logo-color)',
             }}
@@ -84,15 +84,15 @@ export default function Navbar() {
         >
           <motion.span
             animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            className={`block w-6 h-px origin-center transition-colors ${scrolled ? 'bg-charcoal' : 'bg-cream'}`}
+            className={`block w-6 h-px origin-center transition-colors ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-cream'}`}
           />
           <motion.span
             animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-            className={`block w-6 h-px ${scrolled ? 'bg-charcoal' : 'bg-cream'}`}
+            className={`block w-6 h-px ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-cream'}`}
           />
           <motion.span
             animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            className={`block w-6 h-px origin-center ${scrolled ? 'bg-charcoal' : 'bg-cream'}`}
+            className={`block w-6 h-px origin-center ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-cream'}`}
           />
         </button>
       </nav>

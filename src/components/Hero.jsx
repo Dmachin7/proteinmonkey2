@@ -20,16 +20,11 @@ export default function Hero() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Slow continuous Ken Burns drift for cinematic stillness
-      gsap.fromTo(
-        photoRef.current,
-        { scale: 1.08, yPercent: 0 },
-        { scale: 1.18, yPercent: -2, duration: 14, ease: 'sine.inOut', repeat: -1, yoyo: true }
-      )
+      gsap.set(photoRef.current, { scale: 1.08 })
 
-      // Extra scroll-linked parallax depth as the hero scrolls away
+      // Scroll-linked parallax depth as the hero scrolls away
       gsap.to(photoRef.current, {
-        yPercent: '+=10',
+        yPercent: 10,
         ease: 'none',
         scrollTrigger: {
           trigger: sectionRef.current,
